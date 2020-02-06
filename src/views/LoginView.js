@@ -17,7 +17,7 @@ export default function LoginView() {
 
     const { dispatch } = useGlobalState()
 
-    const onSubmit = async (event) => {
+    const onSubmit = (event) => {
         event.preventDefault()
         const elements = event.target.elements
         const username = elements[0].value
@@ -26,25 +26,16 @@ export default function LoginView() {
         console.log(username)
         // retrieve token
         const user = {name: username}
-        let response = await axios({
-            method: 'post',
-            url: 'https://boiling-inlet-28252.herokuapp.com/auth/login',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'                
-            },
-            data: {
-                 email: username + '@test.com',
-                password: password
-            }
-          })
-        let token = "Bearer " + response.data
-
-        dispatch({
-            type: "setSession",
-            data: {user, token}
-        })
-        localStorage.setItem("user", JSON.stringify(user))
-        localStorage.setItem("token", token)
+        const token = "yeet"
+        
+        setTimeout(()=>{
+            dispatch({
+                type: "setSession",
+                data: {user, token}
+            })
+            localStorage.setItem("user", JSON.stringify(user))
+            localStorage.setItem("token", token)
+        }, 500)
         
     }
 

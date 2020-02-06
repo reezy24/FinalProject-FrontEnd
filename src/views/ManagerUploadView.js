@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import ManagerNav from "../components/ManagerNav"
-import axios from "axios"
 import { Redirect } from "react-router-dom"
 
 export default function ManagerUploadView() {
@@ -10,12 +9,6 @@ export default function ManagerUploadView() {
     const [ success, setSuccess ] = useState(null)
     const onFileAdded = (event) => {
 
-        // reset state
-        // setLoading("Fetching autofill data...")
-        // setError(false)
-
-        // get autofill data from server
-        // const data = new FormData()
         const newFile = event.target.files[0]
         
         const isCsv = newFile && newFile.name.includes(".csv")
@@ -32,27 +25,6 @@ export default function ManagerUploadView() {
 
         // indicate upload has started
         setLoading("Uploading...")
-
-        // const formElements = event.target.elements
-        // const data = {
-        //     file: formElements[0].files[0],
-        //     date: formElements[1].value,
-        //     goalTime: formElements[2].value,
-        //     numFloaters: formElements[3].value
-        // }
-
-        // const token = localStorage.getItem("token")
-        // const config = {
-        //     headers: { Authorization: `${token}` }
-        // };
-
-        // axios.post("http://localhost:3002/upload/csv", data, config)
-        //     .then(response => {
-        //         setSuccess(true)
-        //     }).catch(error => {
-        //         setLoading(false)
-        //         setError("" + error)
-        //     })
 
         setTimeout(() => {
             setSuccess(true)
