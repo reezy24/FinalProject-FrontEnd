@@ -51,3 +51,7 @@ passport is used for both local and jwt strategies to handle user authentication
 # User testing – development
 - Need to convert floater view from relying on state to instead storing start/end times in database
 - Timer ticked over by an extra second once finish was checked
+
+# Trello
+
+https://trello.com/b/nsUnkFHu/final-assignment
