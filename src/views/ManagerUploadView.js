@@ -14,17 +14,16 @@ export default function ManagerUploadView() {
         background-color: red;
     `
 
-    const [ autofill, setAutofill ] = useState(null)
     const [ loading, setLoading ] = useState(null)
     const [ error, setError ] = useState(null)
     const [ success, setSuccess ] = useState(null)
-    const [file, setFile ] = useState(null)
+    
     const onFileAdded = (event) => {
 
+        console.log("onfileadded")
         // reset state
         setLoading("Fetching autofill data...")
         setError(false)
-        setAutofill(null)
 
         // get autofill data from server
         const data = new FormData()
@@ -33,18 +32,24 @@ export default function ManagerUploadView() {
         const config = {
             headers: { Authorization: `${token}` }
         };
-                
-        data.append('csvFile', newFile)
-        axios.post("https://boiling-inlet-28252.herokuapp.com/upload/csv", data, config)
-        .then(response => {
-            // update 
-            console.log(response)
-            setFile(response)
+        
+        const isCsv = newFile && newFile.name.includes(".csv")
+        if (isCsv) {
+            data.append('csvFile', newFile)
+            axios.post("https://boiling-inlet-28252.herokuapp.com/upload/csv", data, config)
+            .then(response => {
+                // if successful, will come back with autofill data
+                // uncomment below when axios request works
+                setLoading(false)
+                console.log("autofill changed")
+            }).catch(error => {
+                setLoading(false)
+                setError("" + error)
+            })
+        } else {
             setLoading(false)
             setError("Invalid format. Please upload a .csv file.")
-            setAutofill(null)
-        })
-        
+        }
     }
 
     const onSubmit = event => {
@@ -89,22 +94,17 @@ export default function ManagerUploadView() {
                         <Dropzone>
                              <input type="file" onChange={onFileAdded} required style={{width: "100%"}}/>
                         </Dropzone>
-                        
                         <br />
-                        {
-                            autofill && <>
-                                <label>Select date </label>
-                                <input type="date" defaultValue={autofill.date} required />
-                                <br /> 
-                                <label>Select goal time </label>
-                                <input type="time" required />
-                                <br />
-                                <label>Select number of floaters </label>
-                                <input type="number" defaultValue={autofill.numFloaters} required />
-                                <br />
-                                <button style={{height: "40px"}}>Generate Break Schedule</button>
-                            </>
-                        }
+                        <label>Select date </label>
+                        <input type="date" required />
+                        <br /> 
+                        <label>Select goal time </label>
+                        <input type="time" required />
+                        <br />
+                        <label>Select number of floaters </label>
+                        <input type="number" required />
+                        <br />
+                        <button style={{height: "40px"}}>Generate Break Schedule</button>
                     </form>
                     </div>
             { success && <Redirect to="/view" /> }
