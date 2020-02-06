@@ -8,7 +8,6 @@ export default function ManagerUploadView() {
     const [ loading, setLoading ] = useState(null)
     const [ error, setError ] = useState(null)
     const [ success, setSuccess ] = useState(null)
-
     const onFileAdded = (event) => {
 
         // reset state
@@ -67,6 +66,8 @@ export default function ManagerUploadView() {
             { error && <p style={{color: "red"}}>An error occured during upload:<br/>{error}</p> }
                 <div style={{display: "flex", justifyContent: "center"}}>
                     <form onSubmit={onSubmit} style={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+                       
+                         
                         <label>Drop Roster</label>
                         <input type="file" required onChange={onFileAdded} style={{width: "100%"}}/>
                         <br />
