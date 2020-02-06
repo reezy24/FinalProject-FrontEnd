@@ -2,7 +2,7 @@ const breakSchedules = {
     "08/02/2020": {
         totalFifteens: 19,
         totalThirties: 11,
-        totalBreakTime: (30 * 11 + 19 * 15) / 2,
+        totalBreakTime: 30 * 11 + 19 * 15,
         goalTime: 16*60,
         numFloaters: 2,
         breaks: [
